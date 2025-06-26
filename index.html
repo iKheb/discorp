@@ -290,16 +290,15 @@
     <!-- Navbar -->
     <nav class="py-4 px-6 md:px-12 fixed w-full z-20">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-3xl font-bold text-gradient-purple-blue animate-zoom-in">Discorp</a>
+            <a href="#" class="text-3xl font-bold text-gradient-purple-blue animate-zoom-in">DISCORP</a>
             <ul class="flex space-x-6 items-center">
                 <li><a href="#proyectos" class="scroll-link">Proyectos</a></li>
                 <li><a href="#habilidades" class="scroll-link">Habilidades</a></li>
                 <li><a href="#acerca-de-mi" class="scroll-link">Acerca de Mí</a></li>
                 <li>
-                    <button id="open-contact-modal-btn" class="transition duration-300 focus:outline-none">
-                        Contacto
-                    </button>
-                </li>
+                    <!-- Botón de contacto actualizado para WhatsApp -->
+                    <a href="https://wa.me/573205235313" target="_blank" class="transition duration-300 focus:outline-none">
+                        Contacto</a></li>
                 <!-- Search bar in the middle -->
                 <li class="flex-grow flex justify-center px-4">
                     <div class="relative w-full max-w-md">
@@ -368,6 +367,13 @@
                 <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">Base de Datos <i class="fas fa-database ml-2"></i></span>
                 <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">UI/UX Design <i class="fas fa-palette ml-2"></i></span>
                 <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">Control de Versiones (Git) <i class="fab fa-git-alt ml-2"></i></span>
+                <!-- Nuevas habilidades añadidas -->
+                <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">React <i class="fab fa-react ml-2"></i></span>
+                <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">Vite <i class="fas fa-bolt ml-2"></i></span>
+                <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">Bootstrap <i class="fab fa-bootstrap ml-2"></i></span>
+                <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">Node.js <i class="fab fa-node-js ml-2"></i></span>
+                <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">C++ <i class="fas fa-cuttlefish ml-2"></i></span>
+                <span class="bg-white text-gray-800 px-6 py-3 rounded-full text-lg font-semibold shadow-md transition duration-300 hover:scale-105">IA <i class="fas fa-robot ml-2"></i></span>
             </div>
         </div>
     </section>
@@ -403,32 +409,6 @@
                     Acceder al Dashboard <i class="fas fa-sign-in-alt ml-2"></i>
                 </button>
                 <p id="login-message" class="text-center mt-4 text-sm"></p>
-            </form>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
-    <div id="contact-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <button class="modal-close-btn" id="close-contact-modal-btn">&times;</button>
-            <h2 class="text-4xl font-bold mb-8 text-gradient-purple-blue">Contáctame</h2>
-            <p class="text-lg mb-8">
-                Si tienes un proyecto interesante o simplemente quieres saludar, no dudes en contactarme.
-            </p>
-            <form id="contact-form-modal" action="#" method="POST" class="space-y-6">
-                <div>
-                    <input type="text" id="nombre-contact-modal" name="nombre" placeholder="Tu Nombre Completo" class="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300" required>
-                </div>
-                <div>
-                    <input type="email" id="email-contact-modal" name="email" placeholder="Tu Correo Electrónico" class="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300" required>
-                </div>
-                <div>
-                    <textarea id="mensaje-contact-modal" name="mensaje" rows="7" placeholder="Tu Mensaje..." class="w-full p-4 border rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300" required></textarea>
-                </div>
-                <button type="submit" class="w-full btn-primary text-white font-bold py-4 px-8 rounded-full text-lg transition duration-300">
-                    Enviar Mensaje <i class="fas fa-paper-plane ml-3"></i>
-                </button>
-                <p id="contact-message" class="text-center mt-4 text-sm"></p>
             </form>
         </div>
     </div>
@@ -530,24 +510,31 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 py-10 px-4 text-center">
         <div class="container mx-auto">
-            <!-- PHP para mostrar el año actual dinámicamente -->
-            <p class="mb-4">&copy; <?php echo date("Y"); ?> DISCORP - Todos los derechos reservados.</p>
+            <p class="mb-4">&copy; <span id="current-year"></span> DISCORP - Todos los derechos reservados.</p>
             <div class="flex justify-center space-x-6">
                 <a href="https://github.com/iKheb" target="_blank" class="text-gray-400 hover:text-white transition duration-300" title="Mi GitHub">
                     <i class="fab fa-github text-3xl"></i>
+                </a>
+                <!-- Discord Icon -->
+                <a href="https://discord.gg/zMYB4Gg8Gj" target="_blank" class="text-gray-400 hover:text-white transition duration-300" title="Mi Discord">
+                    <i class="fab fa-discord text-3xl"></i>
+                </a>
+                <!-- WhatsApp Icon -->
+                <a href="https://wa.me/573205235313" target="_blank" class="text-gray-400 hover:text-white transition duration-300" title="Mi WhatsApp">
+                    <i class="fab fa-whatsapp text-3xl"></i>
                 </a>
                 <a href="mailto:1d9h9m6s@gmail.com" class="text-gray-400 hover:text-white transition duration-300" title="Enviar Correo">
                     <i class="fas fa-envelope text-3xl"></i>
                 </a>
             </div>
-            <p class="mt-6 text-sm text-gray-500">Diseñado con <i class="fas fa-heart text-red-500 mx-1"></i> y para todos ustedes.</p>
+            <p class="mt-6 text-sm text-gray-500">Diseñado con <i class="fas fa-heart text-red-500 mx-1"></i> para todos ustedes.</p>
         </div>
     </footer>
 
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         let db;
@@ -555,7 +542,7 @@
         let userId = null; // Se inicializará con el UID del usuario autenticado o null
         let allProjects = []; // Almacenará la lista completa de proyectos sin filtrar
 
-        // TU CONFIGURACIÓN DE FIREBASE
+        // TU CONFIGURACIÓN DE FIREBASE (Usa las variables globales de Canvas)
         const firebaseConfig = {
             apiKey: "AIzaSyAjqPMMWS1Aito2A_Fubcl56tGRSYWFrMY",
             authDomain: "portafolio-370fc.firebaseapp.com",
@@ -567,8 +554,8 @@
         const appId = "portafolio-370fc"; // Usando projectId como appId para la colección de Firestore
 
         // ! IMPORTANTE: Reemplaza 'YOUR_ADMIN_FIREBASE_UID_HERE' con tu UID real de Firebase Auth.
-        // ! Necesitas crear un usuario de correo/contraseña en tu proyecto de Firebase y obtener su UID.
         // ! Puedes obtener tu UID una vez que inicies sesión exitosamente e imprimas 'auth.currentUser.uid' en la consola.
+        // ! En un entorno de producción, este ID no debería estar codificado directamente en el frontend.
         const ADMIN_USER_ID = 'rljOhUjnvne1p1qDhk29io139xc2'; // <-- Reemplaza esto con tu UID
 
         // Referencias a los elementos del DOM
@@ -585,13 +572,6 @@
         const addProjectForm = document.getElementById('add-project-form');
         const dashboardMessage = document.getElementById('dashboard-message');
         const logoutBtn = document.getElementById('logout-btn');
-
-        // Nuevas referencias para el modal de contacto
-        const openContactModalBtn = document.getElementById('open-contact-modal-btn');
-        const closeContactModalBtn = document.getElementById('close-contact-modal-btn');
-        const contactModal = document.getElementById('contact-modal');
-        const contactFormModal = document.getElementById('contact-form-modal');
-        const contactMessage = document.getElementById('contact-message');
 
         // Referencias para el nuevo modal de edición
         const editProjectModal = document.getElementById('edit-project-modal');
@@ -612,6 +592,8 @@
         // Referencia para el botón de cambio de tema
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
 
+        // Referencia a la lista de proyectos en el dashboard para delegación de eventos
+        const currentProjectsList = document.getElementById('current-projects-list');
 
         // Esta variable se inicializará DESPUÉS de que db esté disponible.
         let publicProjectsCollectionRef;
@@ -641,7 +623,7 @@
         }
 
         // Función para renderizar los proyectos en la sección principal
-        function renderProjects(projectsToRender) { // Cambiado el nombre del parámetro
+        function renderProjects(projectsToRender) {
             const projectsContainer = document.getElementById('projects-container');
             projectsContainer.innerHTML = ''; // Limpiar proyectos existentes
 
@@ -679,7 +661,6 @@
 
         // Función para renderizar proyectos en el dashboard
         function renderDashboardProjects(projects) {
-            const currentProjectsList = document.getElementById('current-projects-list');
             currentProjectsList.innerHTML = ''; // Limpiar proyectos existentes
 
             if (projects.length === 0) {
@@ -700,7 +681,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <!-- Edit Button -->
-                            <button data-id="${project.id}" 
+                            <button data-id="${project.id}"
                                     data-title="${project.title}"
                                     data-description="${project.description}"
                                     data-image="${project.image}"
@@ -718,41 +699,6 @@
                     </div>
                 `;
                 currentProjectsList.insertAdjacentHTML('beforeend', projectItem);
-            });
-
-            // Añadir event listeners para botones de eliminar
-            document.querySelectorAll('.delete-project-btn').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const projectId = e.target.dataset.id;
-                    try {
-                        // La eliminación siempre apunta a la colección pública
-                        await deleteDoc(doc(publicProjectsCollectionRef, projectId));
-                        dashboardMessage.className = 'text-center mt-4 text-green-600';
-                        dashboardMessage.textContent = 'Proyecto eliminado con éxito.';
-                        setTimeout(() => { dashboardMessage.textContent = ''; }, 3000);
-                    } catch (error) {
-                        console.error("Error al eliminar proyecto: ", error);
-                        dashboardMessage.className = 'text-center mt-4 text-red-600';
-                        dashboardMessage.textContent = 'Error al eliminar el proyecto.';
-                    }
-                });
-            });
-
-            // Añadir event listeners para botones de editar
-            document.querySelectorAll('.edit-project-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    // Obtener los datos del proyecto desde los atributos data-
-                    const projectData = {
-                        id: e.target.dataset.id,
-                        title: e.target.dataset.title,
-                        description: e.target.dataset.description,
-                        image: e.target.dataset.image,
-                        github: e.target.dataset.github,
-                        demoUrl: e.target.dataset.demourl, // Usar el nuevo data-demourl
-                        technologies: e.target.dataset.techs // Las tecnologías ya están como cadena
-                    };
-                    openEditProjectModal(projectData);
-                });
             });
         }
 
@@ -815,6 +761,9 @@
             // Aplicar el tema guardado inmediatamente al cargar el DOM
             applySavedTheme();
 
+            // Configurar el año actual en el footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
             // Animación de scroll suave
             const scrollLinks = document.querySelectorAll('.scroll-link');
             scrollLinks.forEach(link => {
@@ -849,20 +798,54 @@
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                // ! Mover la inicialización de publicProjectsCollectionRef aquí
                 // Referencia a la colección pública donde se guardarán todos los proyectos
                 publicProjectsCollectionRef = collection(db, `artifacts/${appId}/public/data/projects`);
 
+                // Lógica de autenticación: Intenta primero con el token personalizado si está disponible,
+                // luego recurre a la autenticación anónima si el token falla o no está presente.
+                let signedIn = false;
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    try {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                        console.log("Autenticado con token personalizado.");
+                        signedIn = true;
+                    } catch (tokenError) {
+                        console.error("Error al autenticar con token personalizado:", tokenError.code, tokenError.message);
+                        if (tokenError.code === 'auth/custom-token-mismatch') {
+                            console.warn("El token personalizado proporcionado es inválido o ha expirado. Intentando iniciar sesión de forma anónima.");
+                        } else {
+                            console.warn("El inicio de sesión con token personalizado falló por otras razones. Intentando iniciar sesión de forma anónima.");
+                        }
+                        // Continúa intentando el inicio de sesión anónimo
+                    }
+                }
+
+                if (!signedIn) {
+                    try {
+                        await signInAnonymously(auth);
+                        console.log("Sesión iniciada anónimamente.");
+                    } catch (anonError) {
+                        console.error("Error al iniciar sesión anónimamente:", anonError.code, anonError.message);
+                        if (anonError.code === 'auth/operation-not-allowed' || anonError.code === 'auth/admin-restricted-operation') {
+                            const errorMsg = "La autenticación anónima de Firebase está deshabilitada para tu proyecto. Por favor, habilítala en tu Consola de Firebase bajo 'Authentication' -> 'Sign-in method' -> 'Anonymous'.";
+                            console.error(errorMsg);
+                            document.getElementById('projects-container').innerHTML = `<p class="text-center col-span-full text-red-500">${errorMsg}</p>`;
+                            // Mostrar también el mensaje en el loginMessage del modal si el modal de login está visible
+                            const loginModalElement = document.getElementById('login-modal');
+                            if (loginModalElement.classList.contains('active')) {
+                                document.getElementById('login-message').className = 'text-center mt-4 text-red-600';
+                                document.getElementById('login-message').textContent = errorMsg;
+                            }
+                        }
+                        throw anonError; // Re-lanza el error para que sea capturado por el bloque catch externo
+                    }
+                }
 
                 // Event Listeners para abrir/cerrar modales
                 openLoginModalBtn.addEventListener('click', () => openModal(loginModal));
                 closeLoginModalBtn.addEventListener('click', () => closeModal(loginModal));
                 openDashboardModalBtn.addEventListener('click', () => openModal(dashboardModal));
                 closeDashboardModalBtn.addEventListener('click', () => closeModal(dashboardModal));
-
-                // Nuevos Event Listeners para el modal de contacto
-                openContactModalBtn.addEventListener('click', () => openModal(contactModal));
-                closeContactModalBtn.addEventListener('click', () => closeModal(contactModal));
 
                 // Nuevos Event Listeners para el modal de edición
                 closeEditProjectModalBtn.addEventListener('click', () => closeModal(editProjectModal));
@@ -878,11 +861,44 @@
                 dashboardModal.addEventListener('click', (e) => {
                     if (e.target === dashboardModal) closeModal(dashboardModal);
                 });
-                contactModal.addEventListener('click', (e) => {
-                    if (e.target === contactModal) closeModal(contactModal);
-                });
                 editProjectModal.addEventListener('click', (e) => {
                     if (e.target === editProjectModal) closeModal(editProjectModal);
+                });
+
+                // Delegación de eventos para los botones de eliminar y editar en el dashboard
+                currentProjectsList.addEventListener('click', async (e) => {
+                    const deleteButton = e.target.closest('.delete-project-btn');
+                    const editButton = e.target.closest('.edit-project-btn');
+
+                    if (deleteButton) {
+                        const projectId = deleteButton.dataset.id;
+                        try {
+                            if (auth.currentUser && auth.currentUser.uid === ADMIN_USER_ID) {
+                                await deleteDoc(doc(publicProjectsCollectionRef, projectId));
+                                dashboardMessage.className = 'text-center mt-4 text-green-600';
+                                dashboardMessage.textContent = 'Proyecto eliminado con éxito.';
+                                setTimeout(() => { dashboardMessage.textContent = ''; }, 3000);
+                            } else {
+                                dashboardMessage.className = 'text-center mt-4 text-red-600';
+                                dashboardMessage.textContent = 'Error: No tiene permisos para eliminar proyectos. Por favor, inicie sesión como administrador.';
+                            }
+                        } catch (error) {
+                            console.error("Error al eliminar proyecto: ", error);
+                            dashboardMessage.className = 'text-center mt-4 text-red-600';
+                            dashboardMessage.textContent = 'Error al eliminar el proyecto.';
+                        }
+                    } else if (editButton) {
+                        const projectData = {
+                            id: editButton.dataset.id,
+                            title: editButton.dataset.title,
+                            description: editButton.dataset.description,
+                            image: editButton.dataset.image,
+                            github: editButton.dataset.github,
+                            demoUrl: editButton.dataset.demourl,
+                            technologies: editButton.dataset.techs
+                        };
+                        openEditProjectModal(projectData);
+                    }
                 });
 
 
@@ -1026,38 +1042,6 @@
                     }
                 });
 
-
-                // Envío del formulario de Contacto (en el modal)
-                contactFormModal.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    // Aquí puedes añadir la lógica para enviar el formulario de contacto.
-                    // Por ahora, solo mostraremos un mensaje de éxito/error simulado.
-                    
-                    const nombre = document.getElementById('nombre-contact-modal').value;
-                    const email = document.getElementById('email-contact-modal').value;
-                    const mensaje = document.getElementById('mensaje-contact-modal').value;
-
-                    // Simulación de envío
-                    try {
-                        // Aquí iría tu lógica real de envío (e.g., fetch a una API, Firebase Cloud Function, etc.)
-                        console.log(`Mensaje de contacto recibido:\nNombre: ${nombre}\nEmail: ${email}\nMensaje: ${mensaje}`);
-                        
-                        contactMessage.className = 'text-center mt-4 text-green-600';
-                        contactMessage.textContent = '¡Mensaje enviado con éxito!';
-                        contactFormModal.reset();
-                        setTimeout(() => { 
-                            contactMessage.textContent = ''; 
-                            closeModal(contactModal); // Cerrar el modal después de un tiempo
-                        }, 3000);
-
-                    } catch (error) {
-                        console.error("Error al enviar mensaje de contacto: ", error);
-                        contactMessage.className = 'text-center mt-4 text-red-600';
-                        contactMessage.textContent = 'Error al enviar el mensaje. Inténtelo de nuevo.';
-                    }
-                });
-
-
                 // Botón de cerrar sesión
                 logoutBtn.addEventListener('click', async () => {
                     try {
@@ -1075,51 +1059,26 @@
                 console.error("Error general de inicialización de Firebase:", error);
                 closeModal(loginModal);
                 closeModal(dashboardModal);
-                closeModal(contactModal); // Asegurarse de cerrar el modal de contacto también
                 closeModal(editProjectModal); // Asegurarse de cerrar el modal de edición también
                 adminIconNavItem.classList.remove('hidden');
                 dashboardNavItem.classList.add('hidden');
-                document.getElementById('projects-container').innerHTML = '<p class="text-center col-span-full">Error al inicializar la aplicación. Verifique su configuración de Firebase.</p>';
+                // Proporcionar un mensaje más útil en la UI cuando la inicialización falla.
+                const errorMessageElement = document.getElementById('projects-container');
+                errorMessageElement.innerHTML = `
+                    <p class="text-center col-span-full text-red-500">
+                        Error al inicializar la aplicación de Firebase. Esto puede deberse a:
+                    </p>
+                    <ul class="text-left mx-auto list-disc list-inside text-red-500 col-span-full mt-4">
+                        <li>Configuración de Firebase incorrecta.</li>
+                        <li>Autenticación anónima deshabilitada en su proyecto de Firebase. Por favor, habilítela en la Consola de Firebase bajo 'Authentication' -> 'Sign-in method' -> 'Anonymous'.</li>
+                        <li>Problemas de red o de permisos.</li>
+                    </ul>
+                    <p class="text-center col-span-full text-red-500 mt-4">
+                        Verifique la consola del navegador (F12) para detalles técnicos.
+                    </p>
+                `;
             }
         });
-
-        // Event listener para prevenir algunas combinaciones de teclas comunes (PrintScreen, F12, Ctrl+Shift+I/J)
-        document.addEventListener('keydown', function(e) {
-            // Prevenir F12
-            if (e.key === 'F12') {
-                e.preventDefault();
-                console.log('F12 deshabilitado.');
-                // Puedes mostrar un mensaje al usuario aquí, por ejemplo:
-                // showMessage('La depuración está deshabilitada para esta página.');
-            }
-            // Prevenir Ctrl+Shift+I (Inspector de elementos)
-            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-                console.log('Ctrl+Shift+I deshabilitado.');
-            }
-            // Prevenir Ctrl+Shift+J (Consola)
-            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-                e.preventDefault();
-                console.log('Ctrl+Shift+J deshabilitado.');
-            }
-            // Prevenir PrintScreen (puede variar entre navegadores y sistemas operativos)
-            if (e.key === 'PrintScreen' || e.keyCode === 44) { // keyCode 44 es PrintScreen
-                e.preventDefault();
-                console.log('Captura de pantalla deshabilitada.');
-            }
-        });
-
-        // Opcional: Detectar si las herramientas de desarrollador están abiertas (no confiable al 100%)
-        // setTimeout(function(){
-        //     const devtools = /devtool/i.test(window.navigator.userAgent) || /inspector/i.test(window.navigator.userAgent);
-        //     if(devtools){
-        //         console.log("Herramientas de desarrollador abiertas.");
-        //         // Puedes redirigir o mostrar un mensaje aquí
-        //         // window.location.href = 'about:blank';
-        //     }
-        // }, 1000);
-
-
     </script>
 </body>
 </html>
