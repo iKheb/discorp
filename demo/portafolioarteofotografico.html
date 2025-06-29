@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Artístico - [Nombre del Artista]</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts CDN: Inter for a clean, modern look and Playfair Display for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333; /* Dark gray text */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scroll-behavior for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Vibrant color palette */
+        .bg-primary { background-color: #6a0dad; /* Deep Purple */ }
+        .text-primary { color: #6a0dad; }
+        .bg-secondary { background-color: #9333ea; /* Medium Purple */ }
+        .text-secondary { color: #9333ea; }
+        .bg-accent { background-color: #f7b32b; /* Vibrant Yellow/Orange */ }
+        .text-accent { color: #f7b32b; }
+        .bg-dark-overlay { background-color: rgba(0, 0, 0, 0.6); }
+        .bg-light-gray { background-color: #f8f8f8; }
+
+        /* Custom styles for gallery hover effect */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            transition: transform 0.3s ease-in-out;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03); /* Slight zoom on hover */
+        }
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+
+        /* Back to top button styles */
+        #back-to-top {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed position */
+            bottom: 20px; /* Place at the bottom */
+            right: 20px; /* Place at the right */
+            z-index: 99; /* Ensure it's above other content */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: #6a0dad; /* Primary color */
+            color: white; /* White text */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 50%; /* Rounded shape */
+            font-size: 18px; /* Increase font size */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #back-to-top:hover {
+            background-color: #9333ea; /* Lighter purple on hover */
+        }
+
+    </style>
+</head>
+<body class="bg-light-gray">
+
+    <!-- Header / Navigation -->
+    <header class="bg-white shadow-sm py-4 fixed w-full z-50 rounded-b-xl">
+        <nav class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+            <a href="#" class="text-2xl font-bold text-primary tracking-tight rounded-md">Portafolio.</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#hero" class="text-gray-700 hover:text-primary transition-colors duration-300 rounded-md">Inicio</a>
+                <a href="#about" class="text-gray-700 hover:text-primary transition-colors duration-300 rounded-md">Acerca de</a>
+                <a href="#portfolio" class="text-gray-700 hover:text-primary transition-colors duration-300 rounded-md">Portafolio</a>
+                <a href="#services" class="text-gray-700 hover:text-primary transition-colors duration-300 rounded-md">Servicios</a>
+                <a href="#contact" class="text-gray-700 hover:text-primary transition-colors duration-300 rounded-md">Contacto</a>
+            </div>
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none focus:text-primary rounded-md p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile menu dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white mt-2 py-2 shadow-md rounded-lg mx-4">
+            <a href="#hero" class="block px-4 py-2 text-gray-700 hover:bg-light-gray hover:text-primary rounded-md" onclick="toggleMobileMenu()">Inicio</a>
+            <a href="#about" class="block px-4 py-2 text-gray-700 hover:bg-light-gray hover:text-primary rounded-md" onclick="toggleMobileMenu()">Acerca de</a>
+            <a href="#portfolio" class="block px-4 py-2 text-gray-700 hover:bg-light-gray hover:text-primary rounded-md" onclick="toggleMobileMenu()">Portafolio</a>
+            <a href="#services" class="block px-4 py-2 text-gray-700 hover:bg-light-gray hover:text-primary rounded-md" onclick="toggleMobileMenu()">Servicios</a>
+            <a href="#contact" class="block px-4 py-2 text-gray-700 hover:bg-light-gray hover:text-primary rounded-md" onclick="toggleMobileMenu()">Contacto</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative bg-gradient-to-r from-primary to-secondary text-white min-h-screen flex items-center justify-center pt-24 pb-12 sm:pt-32 sm:pb-16 rounded-b-xl">
+        <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+                [Nombre del Artista]
+            </h1>
+            <p class="text-xl sm:text-2xl mb-8 opacity-90 animate-fade-in-up">
+                Capturando la belleza del mundo, una imagen a la vez.
+            </p>
+            <a href="#portfolio" class="inline-block bg-accent text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-500 transition-colors duration-300 shadow-lg transform hover:scale-105 animate-bounce-in">
+                Ver Portafolio <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-24 bg-white rounded-xl mx-4 sm:mx-8 -mt-16 relative z-10 shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-8">
+            <div class="md:w-1/2">
+                <img src="https://placehold.co/600x400/9333ea/ffffff?text=Tu+Foto+Aquí" alt="Foto del Artista" class="rounded-xl shadow-lg w-full h-auto object-cover">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h2 class="text-4xl font-bold text-primary mb-6">Acerca de Mí</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    Hola, soy [Nombre del Artista], un fotógrafo apasionado con X años de experiencia en capturar momentos y emociones. Mi trabajo se centra en [mencionar tu especialidad, ej. fotografía de paisajes, retratos, eventos, arte abstracto].
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Creo firmemente en el poder de una imagen para contar una historia y evocar sentimientos. Mi objetivo es crear arte visual que resuene con el espectador y deje una impresión duradera.
+                </p>
+                <div class="flex justify-center md:justify-start space-x-6 mt-8 text-primary">
+                    <a href="https://twitter.com/tu_usuario" target="_blank" class="text-2xl hover:text-accent transition-colors duration-300 rounded-md"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/tu_usuario" target="_blank" class="text-2xl hover:text-accent transition-colors duration-300 rounded-md"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com/in/tu_usuario" target="_blank" class="text-2xl hover:text-accent transition-colors duration-300 rounded-md"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio/Gallery Section -->
+    <section id="portfolio" class="py-16 sm:py-24 bg-light-gray">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-primary text-center mb-12">Mi Portafolio</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/9333ea/ffffff?text=Paisaje+Urbano" alt="Paisaje Urbano">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Paisaje Urbano</h3>
+                        <p class="text-white text-opacity-80">Explorando la vida en la ciudad.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/6a0dad/ffffff?text=Retrato+Íntimo" alt="Retrato Íntimo">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Retrato Íntimo</h3>
+                        <p class="text-white text-opacity-80">Conectando con las emociones.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/f7b32b/ffffff?text=Naturaleza+Viva" alt="Naturaleza Viva">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Naturaleza Viva</h3>
+                        <p class="text-white text-opacity-80">La belleza del mundo natural.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/9333ea/ffffff?text=Abstracto+Color" alt="Abstracto Color">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Abstracto Color</h3>
+                        <p class="text-white text-opacity-80">Explosión de formas y tonos.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/6a0dad/ffffff?text=Arquitectura" alt="Arquitectura">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Arquitectura</h3>
+                        <p class="text-white text-opacity-80">Líneas y formas en el diseño.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/f7b32b/ffffff?text=Bodas" alt="Bodas">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Bodas</h3>
+                        <p class="text-white text-opacity-80">Momentos inolvidables capturados.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 7 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/9333ea/ffffff?text=Eventos" alt="Eventos">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Eventos</h3>
+                        <p class="text-white text-opacity-80">La energía de cada celebración.</p>
+                    </div>
+                </div>
+                <!-- Gallery Item 8 -->
+                <div class="gallery-item shadow-md">
+                    <img src="https://placehold.co/600x400/6a0dad/ffffff?text=Moda" alt="Moda">
+                    <div class="gallery-item-overlay">
+                        <h3 class="text-white text-xl font-semibold mb-2">Moda</h3>
+                        <p class="text-white text-opacity-80">Estilo y creatividad en cada pose.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-secondary transition-colors duration-300 shadow-lg transform hover:scale-105">
+                    ¿Interesado? Contáctame <i class="fas fa-envelope ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 sm:py-24 bg-white rounded-xl mx-4 sm:mx-8 shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-primary text-center mb-12">Mis Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Item 1 -->
+                <div class="bg-light-gray p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-103">
+                    <i class="fas fa-camera-retro text-5xl text-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Fotografía de Retratos</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Sesiones personalizadas para individuos, parejas y familias. Capturamos tu esencia.
+                    </p>
+                </div>
+                <!-- Service Item 2 -->
+                <div class="bg-light-gray p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-103">
+                    <i class="fas fa-building text-5xl text-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Fotografía de Arquitectura</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Destacamos la belleza y el diseño de espacios interiores y exteriores.
+                    </p>
+                </div>
+                <!-- Service Item 3 -->
+                <div class="bg-light-gray p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-103">
+                    <i class="fas fa-images text-5xl text-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Eventos Especiales</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Cobertura completa de bodas, conciertos, conferencias y más.
+                    </p>
+                </div>
+                <!-- Service Item 4 -->
+                <div class="bg-light-gray p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-103">
+                    <i class="fas fa-palette text-5xl text-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Arte Visual Abstracto</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Creaciones únicas para galerías y coleccionistas de arte moderno.
+                    </p>
+                </div>
+                <!-- Service Item 5 -->
+                <div class="bg-light-gray p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-103">
+                    <i class="fas fa-globe-americas text-5xl text-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Fotografía de Paisajes</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Capturando la majestuosidad de la naturaleza en cada estación.
+                    </p>
+                </div>
+                <!-- Service Item 6 -->
+                <div class="bg-light-gray p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-103">
+                    <i class="fas fa-video text-5xl text-accent mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Edición y Retoque</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Servicios profesionales de post-producción para tus imágenes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-24 bg-light-gray">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-primary text-center mb-12">Contacto</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-lg flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Ponte en Contacto</h3>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        ¿Tienes un proyecto en mente o simplemente quieres saludar? ¡Me encantaría saber de ti!
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-envelope text-primary mr-3 text-xl"></i>
+                            <span>tu.email@example.com</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-phone-alt text-primary mr-3 text-xl"></i>
+                            <span>+XX XXX XXX XXXX</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-map-marker-alt text-primary mr-3 text-xl"></i>
+                            <span>Tu Ciudad, Tu País</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+                            <input type="text" id="name" name="name" class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" placeholder="tu.email@example.com">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white font-bold py-3 px-4 rounded-full hover:bg-secondary transition-colors duration-300 focus:outline-none focus:shadow-outline shadow-lg transform hover:scale-105">
+                            Enviar Mensaje <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8 rounded-t-xl">
+        <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <p>&copy; 2025 [Nombre del Artista]. Todos los derechos reservados.</p>
+            <div class="flex justify-center space-x-6 mt-4 text-white">
+                <a href="https://twitter.com/tu_usuario" target="_blank" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com/tu_usuario" target="_blank" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/in/tu_usuario" target="_blank" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.onscroll = function() { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
