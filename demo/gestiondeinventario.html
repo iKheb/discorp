@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario Minimalista</title>
+
+    <!-- Google Fonts CDN: Inter para una fuente moderna y limpia -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome CDN para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Estilos personalizados para un toque vibrante */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right bottom, #e0f2fe, #d1e5f8); /* Degradado suave azul claro */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem; /* Ajuste para espaciado en todos los tamaños */
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+        }
+        /* Botones vibrantes */
+        .btn-primary {
+            background: linear-gradient(to right, #6366f1, #8b5cf6); /* Índigo a Morado */
+            color: white;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); /* Sombra sutil */
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0; /* Gris claro */
+            color: #4a5568;
+            transition: background-color 0.2s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+            transform: translateY(-1px);
+        }
+        /* Campos de entrada con foco */
+        .input-field {
+            border-color: #cbd5e0;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            border-color: #6366f1; /* Índigo vibrante en foco */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25); /* Anillo de foco sutil */
+            outline: none; /* Elimina el contorno predeterminado del navegador */
+        }
+        /* Estilo para filas impares para mejor legibilidad */
+        .inventory-table tbody tr:nth-child(odd) {
+            background-color: #f8fafc; /* Color muy sutil */
+        }
+        /* Animaciones sutiles para elementos de la lista */
+        .item-row {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .item-row:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Estilos para el modal personalizado */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 lg:p-8">
+    <div class="container mx-auto bg-white rounded-lg shadow-xl p-6 sm:p-8">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-gray-800">
+            Sistema de Gestión de Inventario
+        </h1>
+
+        <!-- Sección de Añadir/Editar Producto -->
+        <div id="product-form-section" class="mb-8 p-4 sm:p-6 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Añadir/Editar Producto</h2>
+            <form id="product-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                    <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Producto</label>
+                    <input type="text" id="product-name" placeholder="Ej: Laptop XYZ" required
+                           class="input-field mt-1 block w-full rounded-md border py-2 px-3 text-gray-900 shadow-sm text-sm">
+                </div>
+                <div>
+                    <label for="product-quantity" class="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
+                    <input type="number" id="product-quantity" placeholder="Ej: 50" required
+                           class="input-field mt-1 block w-full rounded-md border py-2 px-3 text-gray-900 shadow-sm text-sm">
+                </div>
+                <div>
+                    <label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Precio Unitario</label>
+                    <input type="number" step="0.01" id="product-price" placeholder="Ej: 1200.50" required
+                           class="input-field mt-1 block w-full rounded-md border py-2 px-3 text-gray-900 shadow-sm text-sm">
+                </div>
+                <div>
+                    <label for="product-category" class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
+                    <input type="text" id="product-category" placeholder="Ej: Electrónica" required
+                           class="input-field mt-1 block w-full rounded-md border py-2 px-3 text-gray-900 shadow-sm text-sm">
+                </div>
+                <div class="sm:col-span-2 flex justify-end space-x-3 mt-2">
+                    <button type="submit" id="add-edit-btn" class="btn-primary py-2 px-4 rounded-full font-semibold flex items-center text-sm sm:text-base">
+                        <i class="fas fa-plus mr-2"></i> Añadir Producto
+                    </button>
+                    <button type="button" id="cancel-edit-btn" class="btn-secondary py-2 px-4 rounded-full font-semibold hidden text-sm sm:text-base">
+                        Cancelar Edición
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sección de Búsqueda y Filtrado -->
+        <div class="mb-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <div class="w-full sm:w-1/2">
+                <label for="search-input" class="sr-only">Buscar</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input type="text" id="search-input" placeholder="Buscar por nombre o categoría..."
+                           class="input-field block w-full pl-10 pr-3 py-2 rounded-md border text-gray-900 placeholder-gray-400 text-sm">
+                </div>
+            </div>
+            <div class="w-full sm:w-auto flex justify-center sm:justify-end space-x-3">
+                <button id="filter-all" class="btn-primary py-2 px-4 rounded-full text-sm sm:text-base">Todo</button>
+                <button id="filter-low-stock" class="btn-secondary py-2 px-4 rounded-full text-sm sm:text-base">Poco Stock</button>
+            </div>
+        </div>
+
+        <!-- Tabla de Inventario -->
+        <div class="overflow-x-auto rounded-lg shadow-md">
+            <table class="min-w-full divide-y divide-gray-200 inventory-table">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cantidad</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
+                        <th scope="col" class="relative px-6 py-3">
+                            <span class="sr-only">Acciones</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-list" class="bg-white divide-y divide-gray-200">
+                    <!-- Las filas de productos se insertarán aquí con JavaScript -->
+                    <!-- Ejemplo de fila estática para referencia -->
+                    <tr class="item-row">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Monitor UltraWide</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">25</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$350.00</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Periféricos</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button class="text-indigo-600 hover:text-indigo-800 mr-3 edit-btn" data-id="1">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 delete-btn" data-id="1">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Personalizado -->
+    <div id="custom-modal-overlay" class="modal-overlay">
+        <div id="custom-modal-content" class="modal-content">
+            <p id="modal-message" class="text-lg text-gray-800 mb-4"></p>
+            <div id="modal-buttons" class="modal-buttons">
+                <!-- Botones se añadirán aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para la interactividad -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Seleccionar elementos del DOM
+            const productForm = document.getElementById('product-form');
+            const productNameInput = document.getElementById('product-name');
+            const productQuantityInput = document.getElementById('product-quantity');
+            const productPriceInput = document.getElementById('product-price');
+            const productCategoryInput = document.getElementById('product-category');
+            const addEditBtn = document.getElementById('add-edit-btn');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const inventoryList = document.getElementById('inventory-list');
+            const searchInput = document.getElementById('search-input');
+            const filterAllBtn = document.getElementById('filter-all');
+            const filterLowStockBtn = document.getElementById('filter-low-stock');
+
+            // Elementos del modal personalizado
+            const customModalOverlay = document.getElementById('custom-modal-overlay');
+            const modalMessage = document.getElementById('modal-message');
+            const modalButtonsContainer = document.getElementById('modal-buttons');
+
+            // Estado del inventario y edición
+            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            let editingId = null;
+            let currentFilter = 'all'; // Para mantener el filtro actual
+
+            /**
+             * Muestra un modal personalizado en lugar de alert/confirm.
+             * @param {string} message - El mensaje a mostrar en el modal.
+             * @param {'alert'|'confirm'} type - El tipo de modal ('alert' o 'confirm').
+             * @param {function} [callback] - La función a ejecutar si se confirma (solo para 'confirm').
+             */
+            function showCustomModal(message, type, callback) {
+                modalMessage.textContent = message;
+                modalButtonsContainer.innerHTML = ''; // Limpiar botones anteriores
+
+                if (type === 'alert') {
+                    const okButton = document.createElement('button');
+                    okButton.textContent = 'OK';
+                    okButton.className = 'btn-primary py-2 px-5 rounded-full text-base';
+                    okButton.onclick = () => customModalOverlay.classList.remove('active');
+                    modalButtonsContainer.appendChild(okButton);
+                } else if (type === 'confirm') {
+                    const confirmButton = document.createElement('button');
+                    confirmButton.textContent = 'Confirmar';
+                    confirmButton.className = 'btn-primary py-2 px-5 rounded-full text-base';
+                    confirmButton.onclick = () => {
+                        customModalOverlay.classList.remove('active');
+                        if (callback) callback(true);
+                    };
+
+                    const cancelButton = document.createElement('button');
+                    cancelButton.textContent = 'Cancelar';
+                    cancelButton.className = 'btn-secondary py-2 px-5 rounded-full text-base';
+                    cancelButton.onclick = () => {
+                        customModalOverlay.classList.remove('active');
+                        if (callback) callback(false);
+                    };
+
+                    modalButtonsContainer.appendChild(confirmButton);
+                    modalButtonsContainer.appendChild(cancelButton);
+                }
+
+                customModalOverlay.classList.add('active');
+            }
+
+
+            /**
+             * Renderiza la tabla de inventario basándose en el filtro y la búsqueda actuales.
+             */
+            function renderInventory() {
+                inventoryList.innerHTML = ''; // Limpiar filas existentes
+                let filteredInventory = [...inventory]; // Copia para no modificar el original
+
+                // Aplicar filtro por poco stock
+                if (currentFilter === 'low-stock') {
+                    filteredInventory = filteredInventory.filter(item => item.quantity < 10); // Poco stock: menos de 10 unidades
+                }
+
+                // Aplicar búsqueda
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                if (searchTerm) {
+                    filteredInventory = filteredInventory.filter(item =>
+                        item.name.toLowerCase().includes(searchTerm) ||
+                        item.category.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // Mostrar mensaje si no hay productos
+                if (filteredInventory.length === 0) {
+                    inventoryList.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500 italic">
+                                ${currentFilter === 'low-stock' && !searchTerm ? 'No hay productos con poco stock.' :
+                                   searchTerm && filteredInventory.length === 0 ? 'No se encontraron productos para la búsqueda.' :
+                                   'No hay productos en el inventario. ¡Añade uno!'}
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                // Renderizar cada producto
+                filteredInventory.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'item-row';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm ${item.quantity < 10 ? 'text-red-500 font-semibold' : 'text-gray-500'}">${item.quantity}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$${item.price.toFixed(2)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.category}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button class="text-indigo-600 hover:text-indigo-800 mr-3 edit-btn" data-id="${item.id}" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 delete-btn" data-id="${item.id}" title="Eliminar">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    `;
+                    inventoryList.appendChild(row);
+                });
+
+                // Adjuntar event listeners después de renderizar las filas
+                attachEventListenersToButtons();
+            }
+
+            /**
+             * Guarda el array de inventario en el localStorage.
+             */
+            function saveInventory() {
+                localStorage.setItem('inventory', JSON.stringify(inventory));
+            }
+
+            /**
+             * Maneja el envío del formulario para añadir o editar un producto.
+             * @param {Event} e - El evento de envío del formulario.
+             */
+            productForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevenir el envío predeterminado del formulario
+
+                const name = productNameInput.value.trim();
+                const quantity = parseInt(productQuantityInput.value);
+                const price = parseFloat(productPriceInput.value);
+                const category = productCategoryInput.value.trim();
+
+                // Validar entradas
+                if (!name || isNaN(quantity) || isNaN(price) || !category) {
+                    showCustomModal('Por favor, completa todos los campos y asegúrate de que la cantidad y el precio sean números válidos.', 'alert');
+                    return;
+                }
+                if (quantity < 0 || price < 0) {
+                     showCustomModal('La cantidad y el precio no pueden ser negativos.', 'alert');
+                     return;
+                }
+
+                if (editingId) {
+                    // Si estamos editando un producto existente
+                    const itemIndex = inventory.findIndex(item => item.id === editingId);
+                    if (itemIndex !== -1) {
+                        inventory[itemIndex] = { ...inventory[itemIndex], name, quantity, price, category };
+                    }
+                    // Resetear estado de edición
+                    editingId = null;
+                    addEditBtn.innerHTML = '<i class="fas fa-plus mr-2"></i> Añadir Producto';
+                    cancelEditBtn.classList.add('hidden');
+                } else {
+                    // Si estamos añadiendo un nuevo producto
+                    const newItem = {
+                        id: Date.now(), // ID único basado en el timestamp
+                        name,
+                        quantity,
+                        price,
+                        category
+                    };
+                    inventory.push(newItem);
+                }
+
+                productForm.reset(); // Limpiar el formulario
+                saveInventory(); // Guardar cambios
+                renderInventory(); // Re-renderizar el inventario
+            });
+
+            /**
+             * Adjunta event listeners a los botones de editar y eliminar.
+             * Se llama después de cada renderización para asegurar que los botones dinámicos tienen sus listeners.
+             */
+            function attachEventListenersToButtons() {
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.onclick = (e) => {
+                        const idToEdit = parseInt(e.currentTarget.dataset.id);
+                        const itemToEdit = inventory.find(item => item.id === idToEdit);
+                        if (itemToEdit) {
+                            // Cargar datos en el formulario
+                            productNameInput.value = itemToEdit.name;
+                            productQuantityInput.value = itemToEdit.quantity;
+                            productPriceInput.value = itemToEdit.price;
+                            productCategoryInput.value = itemToEdit.category;
+                            editingId = idToEdit; // Establecer el ID del elemento que se está editando
+
+                            // Cambiar texto y visibilidad de botones
+                            addEditBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Guardar Cambios';
+                            cancelEditBtn.classList.remove('hidden');
+                            window.scrollTo({ top: 0, behavior: 'smooth' }); // Desplazar al formulario para facilidad de uso
+                        }
+                    };
+                });
+
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.onclick = (e) => {
+                        const idToDelete = parseInt(e.currentTarget.dataset.id);
+                        showCustomModal('¿Estás seguro de que quieres eliminar este producto?', 'confirm', (confirmed) => {
+                            if (confirmed) {
+                                inventory = inventory.filter(item => item.id !== idToDelete); // Filtrar el elemento a eliminar
+                                saveInventory(); // Guardar cambios
+                                renderInventory(); // Re-renderizar
+                            }
+                        });
+                    };
+                });
+            }
+
+            /**
+             * Maneja el clic en el botón "Cancelar Edición".
+             * Resetea el formulario y el estado de edición.
+             */
+            cancelEditBtn.addEventListener('click', () => {
+                productForm.reset();
+                editingId = null;
+                addEditBtn.innerHTML = '<i class="fas fa-plus mr-2"></i> Añadir Producto';
+                cancelEditBtn.classList.add('hidden');
+            });
+
+            /**
+             * Listener para el campo de búsqueda. Re-renderiza el inventario con cada cambio.
+             */
+            searchInput.addEventListener('input', () => {
+                renderInventory();
+            });
+
+            /**
+             * Listener para el botón "Todo".
+             */
+            filterAllBtn.addEventListener('click', () => {
+                currentFilter = 'all';
+                renderInventory();
+                filterAllBtn.classList.replace('btn-secondary', 'btn-primary');
+                filterLowStockBtn.classList.replace('btn-primary', 'btn-secondary');
+            });
+
+            /**
+             * Listener para el botón "Poco Stock".
+             */
+            filterLowStockBtn.addEventListener('click', () => {
+                currentFilter = 'low-stock';
+                renderInventory();
+                filterLowStockBtn.classList.replace('btn-secondary', 'btn-primary');
+                filterAllBtn.classList.replace('btn-primary', 'btn-secondary');
+            });
+
+            // Cargar y renderizar el inventario inicial al cargar la página
+            renderInventory();
+        });
+    </script>
+</body>
+</html>
