@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Ventas - Demo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts CDN (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Un gris claro para el fondo */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0; /* Light gray */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8e8e8e; /* Darker gray */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-4 shadow-md flex items-center justify-between">
+        <h1 class="text-2xl font-bold flex items-center">
+            <i data-lucide="line-chart" class="w-7 h-7 mr-2"></i>
+            Dashboard de Ventas
+        </h1>
+        <div class="flex items-center space-x-4">
+            <span class="text-sm">Bienvenido, Usuario 👋</span>
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-indigo-700 font-semibold text-lg">
+                U
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-4 grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min md:auto-rows-fr">
+
+        <!-- Sidebar (Placeholder for navigation) -->
+        <aside class="md:col-span-2 bg-white rounded-xl shadow-lg p-4 h-full hidden md:block">
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center p-3 text-purple-700 font-medium bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors">
+                    <i data-lucide="home" class="w-5 h-5 mr-2"></i>
+                    Inicio
+                </a>
+                <a href="#" class="flex items-center p-3 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 mr-2"></i>
+                    Órdenes
+                </a>
+                <a href="#" class="flex items-center p-3 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors">
+                    <i data-lucide="users" class="w-5 h-5 mr-2"></i>
+                    Clientes
+                </a>
+                <a href="#" class="flex items-center p-3 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors">
+                    <i data-lucide="settings" class="w-5 h-5 mr-2"></i>
+                    Ajustes
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Dashboard Content -->
+        <section class="md:col-span-10 grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-min">
+
+            <!-- Key Metrics Cards -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-start space-y-3 transform hover:scale-105 transition-transform duration-300">
+                <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                    <i data-lucide="dollar-sign" class="w-6 h-6"></i>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">Ventas Totales</p>
+                <p class="text-3xl font-bold text-blue-700">$25,320</p>
+                <p class="text-xs text-green-500 flex items-center">
+                    <i data-lucide="arrow-up" class="w-4 h-4 mr-1"></i>
+                    +12.5% desde el mes pasado
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-start space-y-3 transform hover:scale-105 transition-transform duration-300">
+                <div class="bg-green-100 p-3 rounded-full text-green-600">
+                    <i data-lucide="trending-up" class="w-6 h-6"></i>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">Ingresos</p>
+                <p class="text-3xl font-bold text-green-700">$18,750</p>
+                <p class="text-xs text-red-500 flex items-center">
+                    <i data-lucide="arrow-down" class="w-4 h-4 mr-1"></i>
+                    -3.2% desde el mes pasado
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-start space-y-3 transform hover:scale-105 transition-transform duration-300">
+                <div class="bg-orange-100 p-3 rounded-full text-orange-600">
+                    <i data-lucide="user-plus" class="w-6 h-6"></i>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">Nuevos Clientes</p>
+                <p class="text-3xl font-bold text-orange-700">1,240</p>
+                <p class="text-xs text-green-500 flex items-center">
+                    <i data-lucide="arrow-up" class="w-4 h-4 mr-1"></i>
+                    +5.8% desde el mes pasado
+                </p>
+            </div>
+
+            <!-- Sales Trend Chart -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                <h2 class="text-lg font-semibold mb-4">Tendencia de Ventas Mensuales</h2>
+                <div class="relative flex-grow h-64 md:h-80">
+                    <canvas id="salesChart" class="w-full h-full"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Transactions / Top Products -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col max-h-[400px] overflow-y-auto">
+                <h2 class="text-lg font-semibold mb-4">Transacciones Recientes</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 text-purple-600 mr-2"></i>
+                            <div>
+                                <p class="font-medium">Producto A</p>
+                                <p class="text-xs text-gray-500">ID: #00123</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold text-purple-700">$150.00</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 text-purple-600 mr-2"></i>
+                            <div>
+                                <p class="font-medium">Servicio X</p>
+                                <p class="text-xs text-gray-500">ID: #00124</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold text-purple-700">$300.00</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 text-purple-600 mr-2"></i>
+                            <div>
+                                <p class="font-medium">Licencia Pro</p>
+                                <p class="text-xs text-gray-500">ID: #00125</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold text-purple-700">$99.99</span>
+                    </div>
+                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 text-purple-600 mr-2"></i>
+                            <div>
+                                <p class="font-medium">Producto B</p>
+                                <p class="text-xs text-gray-500">ID: #00126</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold text-purple-700">$75.00</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 text-purple-600 mr-2"></i>
+                            <div>
+                                <p class="font-medium">Consultoría</p>
+                                <p class="text-xs text-gray-500">ID: #00127</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold text-purple-700">$500.00</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i data-lucide="package" class="w-5 h-5 text-purple-600 mr-2"></i>
+                            <div>
+                                <p class="font-medium">Membresía VIP</p>
+                                <p class="text-xs text-gray-500">ID: #00128</p>
+                            </div>
+                        </div>
+                        <span class="font-semibold text-purple-700">$250.00</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 text-center text-sm">
+        Dashboard de Ventas Demo &copy; 2025. Hecho con ❤️ por Géminis.
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Chart.js Configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Ventas ($)',
+                        data: [12000, 15000, 13000, 18000, 17000, 20000, 25000],
+                        borderColor: '#8B5CF6', // Purple-500
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)', // Light purple with transparency
+                        fill: true,
+                        tension: 0.3, // Smooth curve
+                        borderWidth: 2,
+                        pointBackgroundColor: '#8B5CF6',
+                        pointBorderColor: '#FFF',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Allows the chart to fill its container
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend
+                        },
+                        tooltip: {
+                            backgroundColor: '#333',
+                            titleColor: '#FFF',
+                            bodyColor: '#FFF',
+                            cornerRadius: 6,
+                            padding: 10,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Ventas: $${context.raw.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6B7280' // Gray-500
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#E5E7EB' // Gray-200
+                            },
+                            ticks: {
+                                color: '#6B7280', // Gray-500
+                                callback: function(value) {
+                                    return `$${value.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Handle responsiveness for the chart on window resize
+            window.addEventListener('resize', function() {
+                salesChart.resize();
+            });
+        });
+    </script>
+</body>
+</html>
