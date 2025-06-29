@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Vibrante - Inicio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Gris muy claro */
+        }
+        /* Custom styles for vibrant elements */
+        .btn-primary {
+            background-image: linear-gradient(to right, #6a0dad, #8a2be2); /* Gradiente morado vibrante */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.4); /* Sombra más pronunciada */
+        }
+        .card-product {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card-product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .hero-section {
+            background-image: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradiente naranja-rosa */
+        }
+        /* Style for icons */
+        .lucide {
+            display: inline-block;
+            vertical-align: middle;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4 px-6 md:px-8 lg:px-12 flex justify-between items-center rounded-b-lg">
+        <a href="#" class="text-2xl font-bold text-gray-900">
+            Tienda <span class="text-purple-600">Vibrante</span>
+        </a>
+        <nav class="hidden md:flex space-x-6">
+            <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition duration-200">Inicio</a>
+            <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition duration-200">Productos</a>
+            <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition duration-200">Contacto</a>
+            <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition duration-200">Acerca de</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <button class="text-gray-700 hover:text-purple-600 focus:outline-none">
+                <i data-lucide="search" class="lucide w-6 h-6"></i>
+            </button>
+            <button class="text-gray-700 hover:text-purple-600 focus:outline-none">
+                <i data-lucide="shopping-cart" class="lucide w-6 h-6"></i>
+            </button>
+            <button class="md:hidden text-gray-700 hover:text-purple-600 focus:outline-none">
+                <i data-lucide="menu" class="lucide w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-white py-16 md:py-24 lg:py-32 px-6 md:px-8 lg:px-12 flex flex-col items-center justify-center text-center rounded-lg m-4 shadow-lg">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+            Descubre la Próxima Generación de <span class="text-white drop-shadow-md">Estilo</span>
+        </h1>
+        <p class="text-lg md:text-xl max-w-2xl mb-8 opacity-90">
+            Explora nuestra colección curada de productos únicos y de alta calidad que combinan diseño y funcionalidad.
+        </p>
+        <button class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300">
+            Explorar Colección
+        </button>
+    </section>
+
+    <!-- Product Grid Section -->
+    <section class="container mx-auto py-12 px-4 md:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-900">Nuestros Productos Destacados</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Product Card 1 -->
+            <div class="card-product bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                <img src="https://placehold.co/300x200/a78bfa/ffffff?text=Producto+1" alt="Producto 1" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-900">Auriculares Inalámbricos</h3>
+                <p class="text-gray-600 text-sm mb-4">Sumérgete en un sonido de alta fidelidad.</p>
+                <span class="text-2xl font-bold text-purple-600 mb-4">$99.99</span>
+                <button class="btn-primary text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-purple-300 w-full">
+                    <i data-lucide="plus-circle" class="lucide w-5 h-5 inline-block mr-2"></i> Añadir al Carrito
+                </button>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="card-product bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                <img src="https://placehold.co/300x200/60a5fa/ffffff?text=Producto+2" alt="Producto 2" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-900">Reloj Inteligente Ultra</h3>
+                <p class="text-gray-600 text-sm mb-4">Tu compañero perfecto para el día a día.</p>
+                <span class="text-2xl font-bold text-purple-600 mb-4">$199.99</span>
+                <button class="btn-primary text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-purple-300 w-full">
+                    <i data-lucide="plus-circle" class="lucide w-5 h-5 inline-block mr-2"></i> Añadir al Carrito
+                </button>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="card-product bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                <img src="https://placehold.co/300x200/fcd34d/ffffff?text=Producto+3" alt="Producto 3" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-900">Cámara Compacta 4K</h3>
+                <p class="text-gray-600 text-sm mb-4">Captura tus momentos con una claridad asombrosa.</p>
+                <span class="text-2xl font-bold text-purple-600 mb-4">$349.99</span>
+                <button class="btn-primary text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-purple-300 w-full">
+                    <i data-lucide="plus-circle" class="lucide w-5 h-5 inline-block mr-2"></i> Añadir al Carrito
+                </button>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="card-product bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                <img src="https://placehold.co/300x200/ef4444/ffffff?text=Producto+4" alt="Producto 4" class="w-full h-48 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-900">Batería Portátil de 20000mAh</h3>
+                <p class="text-gray-600 text-sm mb-4">Carga tus dispositivos sobre la marcha.</p>
+                <span class="text-2xl font-bold text-purple-600 mb-4">$49.99</span>
+                <button class="btn-primary text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-4 focus:ring-purple-300 w-full">
+                    <i data-lucide="plus-circle" class="lucide w-5 h-5 inline-block mr-2"></i> Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 px-6 md:px-8 lg:px-12 rounded-t-lg mt-8">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <div class="mb-4 md:mb-0">
+                <p>&copy; 2025 Tienda Vibrante. Todos los derechos reservados.</p>
+                <p class="text-sm text-gray-400">Diseñado con amor y tecnología por iKheb.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                    <i data-lucide="instagram" class="lucide w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                    <i data-lucide="facebook" class="lucide w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                    <i data-lucide="twitter" class="lucide w-6 h-6"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        // Trigger Lucide Icons to render
+        lucide.createIcons();
+
+        // Simple interactivity for "Add to Cart" buttons
+        document.querySelectorAll('.btn-primary').forEach(button => {
+            button.addEventListener('click', () => {
+                const productName = button.closest('.card-product')?.querySelector('h3')?.textContent || 'Producto';
+                alert(`"${productName}" ha sido añadido al carrito. (Demo interactiva)`);
+            });
+        });
+    </script>
+</body>
+</html>
